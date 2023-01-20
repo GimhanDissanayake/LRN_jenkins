@@ -1,14 +1,23 @@
 # docker-compose.yaml
-version: '3.8'
+version: '3.3'
 services:
   jenkins:
     image: jenkins/jenkins:lts
     privileged: true
     user: root
     ports:
-      - 8080:8080   # web UI
-      - 50000:50000   # to communicate with  Jenkins agents on other machines
+      - 8080:8080
+      - 50000:50000
     container_name: jenkins
     volumes:
       - /home/${myname}/jenkins_compose/jenkins_configuration:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+  agent:
+    image: jenkins/ssh-agent:jdk11
+    privileged: true
+    user: root
+    container_name: agent
+    expose:
+      - 22
+    environment:
+      - JENKINS_AGENT_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDlox0hAB9thrwY4y2oX46Pxs7BZwWJw4rQpPBnyIzHOaKvVGAjl3OL9mjaz3r6gTvUIGQgamkIpt7AS49LwGAmTJxEMZDoXikmxoNgEtZVyctayE43EC2e4ZFk+TW4gH6u+QgMvPWu9lNg/EeSTN9it4+snYGizqshwxtPt83/gj319BPEoBTOtfGMRea8NhGl3D0pwfywHvm05ApfMEOVIJTTXiqBmx2ocZYt4VZVZd4a+K/I8ymkRTRK3NjcRpbunk5UiZDQPO0PFYZcQCZfPooqO8O8/sygH8JNIyGhmlpPYOVDa5IY/fTVdxF3ZZxxL2giCPe4OOb361s9JcWvBWLgFCC3REKR8dFGllz5Itjs1t6cZ3uH49ezoMg+vOTEmhjaFhakLzwErW7Ec8CWIwu2AnkBrAMMDrpZoLXCEGSFWrPjwgwt1xXxgKGwBo/LSnLzogLiTFFimS+KVzL+8cpngIySqmlR29HdMApVTm6l9KDjy8aQLFrrcUfBATc= ubuntu@instance-20221206-1256
