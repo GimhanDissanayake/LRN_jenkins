@@ -12,3 +12,15 @@
 2. To block: Manage Jenkins » Manage Nodes and Clouds >> Select Built-In Node in the list, then select Configure in the menu. Set the number of executors to 0 and save
 3. Alternatively, use a plugin such as Job Restrictions Plugin to limit which jobs can be run on certain nodes (like the built-in node), independent of what your less trusted users may use as label expression in their jobs' configurations.
 4. If you do not have any other computers to run agents on, you can also run an agent process as a different operating system user on the same system to achieve a similar isolation effect.
+
+Terms:
+### CI(Continous Integration)
+- Automatically testing and building the code once the developer push the code to the code repo
+
+### CD(Continous Delivery/Deployment)
+- Delivery:
+1. May involve a manual step to approve a deployment
+2. is an extension of continuous integration since it automatically deploys all code changes to a testing and/or production environment after the build stage. 
+- Deployment:
+1. No manual approvals
+2. Every change that passes all stages of your production pipeline is released to your customers
